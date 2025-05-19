@@ -1,3 +1,4 @@
+import 'package:flutter_application_ngrk/domain/usecases/order_usecase/UpdateOrderStatusUseCase.dart';
 import 'package:flutter_application_ngrk/domain/usecases/order_usecase/create_order.dart';
 import 'package:flutter_application_ngrk/domain/usecases/order_usecase/delete_order.dart';
 import 'package:flutter_application_ngrk/domain/usecases/order_usecase/get_all_orders.dart';
@@ -45,6 +46,17 @@ class OrderController extends GetxController {
     } catch (e) {
       print('Error deleting order: $e');
       return false;
+    }
+  }
+
+  Future<void> updateOrderStatus(int orderId, String newStatus) async {
+    try {
+      await sl<UpdateOrderStatusUseCase>().call(orderId, newStatus);
+
+      // Optional: Refresh the order list
+      await getAllOrders();
+    } catch (e) {
+      Get.snackbar("Error", "Failed to update order status");
     }
   }
 }

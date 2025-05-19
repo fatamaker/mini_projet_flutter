@@ -7,6 +7,7 @@ class ArticleModel extends Article {
     required super.description,
     required super.image,
     required super.prix,
+    required super.stock,
   });
 
   factory ArticleModel.fromJson(Map<String, dynamic> json) {
@@ -16,6 +17,7 @@ class ArticleModel extends Article {
       description: json['description'],
       image: json['image'],
       prix: json['prix'],
+      stock: json['stock'],
     );
   }
 
@@ -26,6 +28,7 @@ class ArticleModel extends Article {
       'description': description,
       'image': image,
       'prix': prix,
+      'stock': stock,
     };
   }
 }

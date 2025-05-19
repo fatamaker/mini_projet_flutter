@@ -7,6 +7,7 @@ class Article {
   final String description;
   final String image;
   final int prix;
+  final int stock;
 
   const Article({
     required this.id,
@@ -14,5 +15,6 @@ class Article {
     required this.description,
     required this.image,
     required this.prix,
+    required this.stock,
   });
 }

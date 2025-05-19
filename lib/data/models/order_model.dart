@@ -1,5 +1,6 @@
 import 'order_line_model.dart';
 
+//status and quantitie plus the duplication of the order line and the decrse of the stock in the product
 class OrderModel {
   final int? orderId;
   final String status;
@@ -35,6 +36,5 @@ class OrderModel {
         'status': status,
         'quantite': quantite,
         'total': total,
-        'orderLines': orderLines.map((e) => e.toJson()).toList(),
       };
 }

@@ -4,4 +4,5 @@ abstract class OrderRepository {
   Future<List<OrderModel>> getAllOrders();
   Future<void> deleteOrder(int id);
   Future<OrderModel> createOrder(OrderModel order);
+  Future<void> updateOrderStatus(int orderId, String newStatus);
 }

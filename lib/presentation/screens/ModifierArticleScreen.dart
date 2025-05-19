@@ -136,6 +136,7 @@ class _ModifierArticleScreenState extends State<ModifierArticleScreen> {
   late TextEditingController prixController;
   late TextEditingController descriptionController;
   late TextEditingController imageController;
+  late TextEditingController stockController;
 
   @override
   void initState() {
@@ -146,6 +147,8 @@ class _ModifierArticleScreenState extends State<ModifierArticleScreen> {
     descriptionController =
         TextEditingController(text: widget.article.description);
     imageController = TextEditingController(text: '');
+    stockController =
+        TextEditingController(text: widget.article.stock.toString());
   }
 
   @override
@@ -154,6 +157,7 @@ class _ModifierArticleScreenState extends State<ModifierArticleScreen> {
     prixController.dispose();
     descriptionController.dispose();
     imageController.dispose();
+    stockController.dispose();
     super.dispose();
   }
 
@@ -211,6 +215,23 @@ class _ModifierArticleScreenState extends State<ModifierArticleScreen> {
                       fillColor: Colors.white,
                     ),
                   ),
+                  TextFormField(
+                    controller: stockController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      labelText: "stock",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(81, 85, 137, 200)),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                  ),
                   const SizedBox(height: 16),
                   TextFormField(
                     controller: descriptionController,
@@ -256,6 +277,7 @@ class _ModifierArticleScreenState extends State<ModifierArticleScreen> {
                         prix: int.tryParse(prixController.text) ?? 0,
                         description: descriptionController.text,
                         image: imageController.text,
+                        stock: int.tryParse(stockController.text) ?? 0,
                       );
 
                       final success =

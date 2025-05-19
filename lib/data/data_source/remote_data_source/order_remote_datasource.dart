@@ -7,6 +7,7 @@ abstract class OrderRemoteDataSource {
   Future<List<OrderModel>> getAllOrders();
   Future<void> deleteOrder(int id);
   Future<OrderModel> createOrder(OrderModel order);
+  Future<void> updateOrderStatus(int orderId, String newStatus);
 }
 
 class OrderRemoteDataSourceImpl implements OrderRemoteDataSource {
@@ -44,6 +45,21 @@ class OrderRemoteDataSourceImpl implements OrderRemoteDataSource {
       return OrderModel.fromJson(json.decode(response.body));
     } else {
       throw Exception('Failed to create order');
+    }
+  }
+
+  @override
+  Future<void> updateOrderStatus(int orderId, String newStatus) async {
+    final url =
+        Uri.parse('${APIConst.orders}/$orderId/status?status=$newStatus');
+
+    final response = await http.put(
+      url,
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to update order status');
     }
   }
 }

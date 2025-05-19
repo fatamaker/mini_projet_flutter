@@ -58,6 +58,26 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
   void addLine() {
     final quantity = int.tryParse(lineQuantityController.text);
     if (selectedArticle != null && quantity != null) {
+      final alreadyExists =
+          lines.any((line) => line.articleId == selectedArticle!.id);
+
+      if (alreadyExists) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Attention'),
+            content: const Text('Cet article a déjà été ajouté.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+        return;
+      }
+
       setState(() {
         lines.add(OrderLineModel(
           quantity: quantity,
@@ -67,8 +87,20 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
         lineQuantityController.clear();
       });
     } else {
-      Get.snackbar(
-          'Erreur', 'Veuillez sélectionner un article et une quantité');
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Erreur'),
+          content:
+              const Text('Veuillez sélectionner un article et une quantité.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
     }
   }
 
@@ -80,7 +112,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
 
     final order = OrderModel(
       status: statusController.text,
-      quantite: int.tryParse(quantiteController.text) ?? 0,
+      quantite: 0,
       total: 0,
       userId: selectedUser!.idUser,
       orderLines: lines,
@@ -131,12 +163,12 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                       decoration: const InputDecoration(labelText: 'Statut'),
                     ),
                     const SizedBox(height: 10),
-                    TextField(
-                      controller: quantiteController,
-                      decoration:
-                          const InputDecoration(labelText: 'Quantité totale'),
-                      keyboardType: TextInputType.number,
-                    ),
+                    // TextField(
+                    //   controller: quantiteController,
+                    //   decoration:
+                    //       const InputDecoration(labelText: 'Quantité totale'),
+                    //   keyboardType: TextInputType.number,
+                    // ),
                   ],
                 ),
               ),
@@ -213,6 +245,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                             description: '',
                             image: '',
                             prix: 0,
+                            stock: 0,
                           ),
                         )
                         .nom;

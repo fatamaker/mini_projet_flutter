@@ -55,9 +55,23 @@ class OrdersListScreen extends StatelessWidget {
                         ),
                       );
                     },
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete, color: Colors.redAccent),
-                      onPressed: () => controller.deleteOrder(order.orderId!),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // Button to delete the order
+                        IconButton(
+                          icon: Icon(Icons.delete, color: Colors.redAccent),
+                          onPressed: () =>
+                              controller.deleteOrder(order.orderId!),
+                        ),
+                        // Button to update the order status
+                        IconButton(
+                          icon: Icon(Icons.check_circle, color: Colors.green),
+                          onPressed: () => controller.updateOrderStatus(
+                              order.orderId!, 'delivered'),
+                          tooltip: 'Mark as Delivered',
+                        ),
+                      ],
                     ),
                   ),
                 ),

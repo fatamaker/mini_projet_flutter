@@ -21,4 +21,9 @@ class OrderRepositoryImpl implements OrderRepository {
   Future<OrderModel> createOrder(OrderModel order) async {
     return await remoteDataSource.createOrder(order);
   }
+
+  @override
+  Future<void> updateOrderStatus(int orderId, String newStatus) {
+    return remoteDataSource.updateOrderStatus(orderId, newStatus);
+  }
 }

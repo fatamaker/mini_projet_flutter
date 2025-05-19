@@ -12,6 +12,7 @@ import 'package:flutter_application_ngrk/domain/usecases/article_usecase/delete_
 import 'package:flutter_application_ngrk/domain/usecases/article_usecase/get_all_articles.dart';
 import 'package:flutter_application_ngrk/domain/usecases/article_usecase/get_article_by_id.dart';
 import 'package:flutter_application_ngrk/domain/usecases/article_usecase/update_article.dart';
+import 'package:flutter_application_ngrk/domain/usecases/order_usecase/UpdateOrderStatusUseCase.dart';
 import 'package:flutter_application_ngrk/domain/usecases/order_usecase/create_order.dart';
 import 'package:flutter_application_ngrk/domain/usecases/order_usecase/delete_order.dart';
 import 'package:flutter_application_ngrk/domain/usecases/order_usecase/get_all_orders.dart';
@@ -68,4 +69,5 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetAllOrders(sl()));
   sl.registerLazySingleton(() => DeleteOrder(sl()));
   sl.registerLazySingleton(() => CreateOrder(sl()));
+  sl.registerLazySingleton(() => UpdateOrderStatusUseCase(sl()));
 }
