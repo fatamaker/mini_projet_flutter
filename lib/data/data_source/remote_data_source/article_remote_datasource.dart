@@ -1,13 +1,16 @@
 // lib/data/datasources/article_remote_datasource.dart
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter_application_ngrk/core/utils/api_const.dart';
 import 'package:flutter_application_ngrk/data/models/article_model.dart';
+import 'package:http_parser/http_parser.dart';
 
 abstract class ArticleRemoteDataSource {
   Future<List<ArticleModel>> getArticles();
   Future<ArticleModel> getArticleById(int id);
-  Future<void> addArticle(ArticleModel article);
+  // Future<void> addArticle(ArticleModel article);
+  Future<void> addArticle(ArticleModel article, File imageFile);
   Future<void> updateArticle(ArticleModel article);
   Future<void> deleteArticle(int id);
 }
@@ -50,17 +53,41 @@ class ArticleRemoteDataSourceImpl implements ArticleRemoteDataSource {
     }
   }
 
-  @override
-  Future<void> addArticle(ArticleModel article) async {
-    final uri = Uri.parse(APIConst.Products);
-    final response = await http.post(
-      uri,
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode(article.toJson()),
+  // @override
+  // Future<void> addArticle(ArticleModel article) async {
+  //   final uri = Uri.parse('${APIConst.Products}/create');
+  //   final response = await http.post(
+  //     uri,
+  //     headers: {'Content-Type': 'application/json'},
+  //     body: json.encode(article.toJson()),
+  //   );
+
+  //   if (response.statusCode != 200 && response.statusCode != 201) {
+  //     throw Exception('Failed to create article');
+  //   }
+  // }
+
+  Future<void> addArticle(ArticleModel article, File imageFile) async {
+    final uri = Uri.parse('${APIConst.Products}/create');
+    var request = http.MultipartRequest('POST', uri);
+
+    request.fields['nom'] = article.nom;
+    request.fields['description'] = article.description;
+    request.fields['prix'] = article.prix.toString();
+    request.fields['stock'] = article.stock.toString();
+
+    request.files.add(
+      await http.MultipartFile.fromPath(
+        'image',
+        imageFile.path,
+        contentType: MediaType('image', 'jpeg'), // ajuste si png
+      ),
     );
 
+    final response = await request.send();
+
     if (response.statusCode != 200 && response.statusCode != 201) {
-      throw Exception('Failed to create article');
+      throw Exception('Erreur lors de la création de l\'article');
     }
   }
 

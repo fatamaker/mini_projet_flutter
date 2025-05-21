@@ -142,7 +142,7 @@ import 'package:get/get.dart';
 class ArticleScreen extends StatelessWidget {
   final int id;
   const ArticleScreen({super.key, required this.id});
-  static const imgUrl = 'http://192.168.30.24:5000/images';
+  static const imgUrl = 'http://192.168.246.24:5000/images';
 
   @override
   Widget build(BuildContext context) {

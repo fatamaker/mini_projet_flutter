@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_application_ngrk/data/models/article_model.dart';
 import 'package:get/get.dart';
 import 'package:flutter_application_ngrk/di.dart';
@@ -34,7 +36,7 @@ class ArticleController extends GetxController {
     }
   }
 
-  // Future<bool> createArticle(Article article) async {
+  // Future<bool> createArticle(ArticleModel article) async {
   //   try {
   //     await CreateArticle(sl())(article);
   //     await getAllArticles();
@@ -44,6 +46,17 @@ class ArticleController extends GetxController {
   //     return false;
   //   }
   // }
+
+  Future<bool> createArticle(ArticleModel article, File imageFile) async {
+    try {
+      await CreateArticle(sl())(article, imageFile);
+      await getAllArticles();
+      return true;
+    } catch (e) {
+      print("Erreur ajout article : $e");
+      return false;
+    }
+  }
 
   Future<bool> updateArticle(ArticleModel article) async {
     try {

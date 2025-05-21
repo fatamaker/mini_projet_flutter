@@ -106,6 +106,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_ngrk/core/utils/text_style.dart';
 import 'package:flutter_application_ngrk/presentation/controllers/article_controller.dart';
+import 'package:flutter_application_ngrk/presentation/screens/add_article_screen.dart';
 import 'package:flutter_application_ngrk/presentation/screens/product_screen.dart';
 import 'package:flutter_application_ngrk/presentation/widgets/input_search.dart';
 import 'package:flutter_application_ngrk/presentation/widgets/product_item.dart';
@@ -194,6 +195,14 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (_) => AddArticleScreen()),
+          );
+        },
+        child: Icon(Icons.add),
       ),
     );
   }

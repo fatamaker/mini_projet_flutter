@@ -1,4 +1,6 @@
 // data/repositories/article_repository_impl.dart
+import 'dart:io';
+
 import 'package:flutter_application_ngrk/data/data_source/remote_data_source/article_remote_datasource.dart';
 import 'package:flutter_application_ngrk/data/models/article_model.dart';
 import 'package:flutter_application_ngrk/domain/entities/article.dart';
@@ -20,8 +22,8 @@ class ArticleRepositoryImpl implements ArticleRepository {
   }
 
   @override
-  Future<void> createArticle(ArticleModel article) async {
-    return await remoteDataSource.addArticle(article);
+  Future<void> createArticle(ArticleModel article, File imageFile) async {
+    return await remoteDataSource.addArticle(article, imageFile);
   }
 
   @override

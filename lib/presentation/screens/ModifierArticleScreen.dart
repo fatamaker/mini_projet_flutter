@@ -215,6 +215,7 @@ class _ModifierArticleScreenState extends State<ModifierArticleScreen> {
                       fillColor: Colors.white,
                     ),
                   ),
+                  const SizedBox(height: 16),
                   TextFormField(
                     controller: stockController,
                     keyboardType: TextInputType.number,

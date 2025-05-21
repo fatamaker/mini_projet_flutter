@@ -5,7 +5,7 @@ import 'package:flutter_application_ngrk/domain/entities/article.dart';
 class ProductItem extends StatelessWidget {
   final Article product;
   const ProductItem({super.key, required this.product});
-  static const imgUrl = 'http://192.168.30.24:5000/images';
+  static const imgUrl = 'http://192.168.246.24:5000/images';
   @override
   Widget build(BuildContext context) {
     return Padding(
